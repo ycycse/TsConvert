@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.tsinghua</groupId>
+    <artifactId>TsFileTransformer</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.arrow</groupId>
+            <artifactId>arrow-vector</artifactId>
+            <version>18.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.arrow</groupId>
+            <artifactId>arrow-format</artifactId>
+            <version>18.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tsfile</groupId>
+            <artifactId>common</artifactId>
+            <version>1.2.0-241224-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tsfile</groupId>
+            <artifactId>tsfile</artifactId>
+            <version>1.2.0-241224-SNAPSHOT </version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.iotdb</groupId>
+            <artifactId>isession</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
