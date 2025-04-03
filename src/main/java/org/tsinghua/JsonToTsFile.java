@@ -57,7 +57,7 @@ public class JsonToTsFile {
     public static void main(String[] args) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            List<Dataset> datasetList = objectMapper.readValue(new File("/Users/ycycse/WorkSpace/TsFileTransformer/valid_ustd.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Dataset.class));
+            List<Dataset> datasetList = objectMapper.readValue(new File("/Volumes/ycy/tsfileExp/data/utsd.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Dataset.class));
             writeToTsFile(datasetList, "/Users/ycycse/WorkSpace/TsFileTransformer/utsd.tsfile");
         } catch (Exception e) {
             e.printStackTrace();

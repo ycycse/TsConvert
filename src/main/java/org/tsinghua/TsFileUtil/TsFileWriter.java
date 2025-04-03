@@ -19,6 +19,7 @@
 
 package org.tsinghua.TsFileUtil;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.apache.tsfile.enums.TSDataType;
 import org.apache.tsfile.exception.write.WriteProcessException;
 import org.apache.tsfile.file.metadata.ColumnSchemaBuilder;
@@ -35,6 +36,27 @@ import java.util.List;
 
 public class TsFileWriter {
 
+    public static void writeToTsFile(TableSchema tableSchema, List<String> itemList, List<Long> timestamp, List<Double> valueList, String targetFilePath) throws IOException {
+        System.out.println("Writing to tsfile: " + targetFilePath);
+        File tsfile = new File(targetFilePath);
+        try(ITsFileWriter writer =
+                new TsFileWriterBuilder()
+                        .file(tsfile)
+                        .tableSchema(tableSchema)
+                        .build()){
+
+            Tablet tablet = new Tablet(Arrays.asList("item_id", "value"), Arrays.asList(TSDataType.STRING, TSDataType.DOUBLE), timestamp.size());
+            for (int i = 0; i < timestamp.size(); i++) {
+                tablet.addTimestamp(i, timestamp.get(i));
+                tablet.addValue(i, 0, itemList.get(i));
+                tablet.addValue(i, 1, valueList.get(i));
+            }
+            writer.write(tablet);
+        } catch (WriteProcessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void writeToTsFile(List<JsonToTsFile.Dataset> data, String targetTsFilePath) throws IOException, WriteProcessException {
         File tsfile = new File(targetTsFilePath);
         String tableName = "utsd";
@@ -43,7 +65,7 @@ public class TsFileWriter {
                         tableName,
                         Arrays.asList(
                                 new ColumnSchemaBuilder()
-                                        .name("item_id")
+                                        .name("device_id")
                                         .dataType(TSDataType.STRING)
                                         .category(Tablet.ColumnCategory.TAG)
                                         .build(),
@@ -75,13 +97,4 @@ public class TsFileWriter {
             }
         }
     }
-
-//        try (ITableSession session =
-//                     new TableSessionBuilder()
-//                             .nodeUrls(Collections.singletonList(LOCAL_URL))
-//                             .username("root")
-//                             .password("root")
-//                             .build()) {
-//
-//        }
 }
